@@ -2,6 +2,3 @@ node_modules/*
 
 # Ignore built files
 public/*
-
-# Ignore Service Worker 
-serviceWorker.js
