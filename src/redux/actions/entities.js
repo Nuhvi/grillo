@@ -1,7 +1,9 @@
 import { entities } from './types';
 
-export const doSomething = () => ({
-  type: entities.DO_SOMETHING,
+export const addList = (title, projectId) => ({
+  type: entities.ADD_LIST,
+  title,
+  projectId,
 });
 
-export default { doSomething };
+export default { addList };

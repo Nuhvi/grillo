@@ -2,29 +2,27 @@ export const entities = {
   pending: false,
   error: null,
   data: {
-    projects: {
+    allProjects: {
       byId: {
         '1': {
           title: 'first_project',
-          lists: ['1', '2'],
+          projectLists: ['1', '2'],
         },
       },
-      allIds: [],
     },
-    lists: {
+    allLists: {
       byId: {
         '1': {
           title: 'first_list',
-          cards: ['1'],
+          ListCards: ['1'],
         },
         '2': {
           title: 'second_list',
-          cards: ['2'],
+          ListCards: ['2'],
         },
       },
-      allIds: [],
     },
-    cards: {
+    allCards: {
       byId: {
         '1': {
           title: 'first_card',
@@ -33,7 +31,6 @@ export const entities = {
           title: 'second_card',
         },
       },
-      allIds: [],
     },
   },
 };

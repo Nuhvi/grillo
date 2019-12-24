@@ -1,16 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { entities } from '../../redux/actions';
 
-const Project = props => {
-  const { projects, lists, projectId } = props;
+const { addList } = entities;
 
-  const listsIds = projects[projectId].lists;
+const Project = ({ allProjects, allLists, projectId, addList }) => {
+  const project = allProjects[projectId];
+  const listsIds = project.projectLists;
+
+  const doSomething = e => {
+    e.preventDefault();
+    const title = e.target.children.title.value;
+    addList(title, projectId);
+  };
 
   return (
     <>
+      <h2>{project.title}</h2>
+      <form onSubmit={e => doSomething(e)}>
+        <input placeholder="Title" name="title" />
+        <button type="submit">Add list</button>
+      </form>
       {listsIds.map(listId => {
-        return <p key={listId}>{lists[listId].title}</p>;
+        return <p key={listId}>{allLists[listId].title}</p>;
       })}
     </>
   );
@@ -18,20 +31,19 @@ const Project = props => {
 
 Project.propTypes = {
   projectId: PropTypes.string.isRequired,
-  projects: PropTypes.shape({
+  allProjects: PropTypes.shape({
     project: PropTypes.shape({
       title: 'first_project',
-      lists: ['1'],
+      projectLists: ['1'],
     }),
   }).isRequired,
-  lists: PropTypes.shape({}).isRequired,
+  allLists: PropTypes.shape({}).isRequired,
+  addList: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
-  projects: state.entities.data.projects.byId,
-  lists: state.entities.data.lists.byId,
+  allProjects: state.entities.data.allProjects.byId,
+  allLists: state.entities.data.allLists.byId,
 });
 
-// const mapDispatchToProps = dispatch => ({});
-
-export default connect(mapStateToProps)(Project);
+export default connect(mapStateToProps, { addList })(Project);
