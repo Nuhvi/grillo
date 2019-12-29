@@ -1,9 +1,9 @@
 import { entities } from './types';
 
-export const addList = (title, projectId) => ({
+export const addList = (title, boardId) => ({
   type: entities.ADD_LIST,
   title,
-  projectId,
+  boardId,
 });
 
 export default { addList };

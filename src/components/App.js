@@ -1,10 +1,10 @@
 import React from 'react';
-import Project from './containers/Project';
+import Board from './containers/Board';
 
 const App = () => {
   return (
     <div>
-      <Project projectId="1" />
+      <Board boardId="1" />
     </div>
   );
 };

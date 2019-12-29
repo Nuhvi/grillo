@@ -2,11 +2,11 @@ export const entities = {
   pending: false,
   error: null,
   data: {
-    allProjects: {
+    allBoards: {
       byId: {
         '1': {
-          title: 'first_project',
-          projectLists: ['1', '2'],
+          title: 'first_board',
+          boardLists: ['1', '2'],
         },
       },
     },

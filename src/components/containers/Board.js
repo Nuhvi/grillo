@@ -5,19 +5,19 @@ import { entities } from '../../redux/actions';
 
 const { addList } = entities;
 
-const Project = ({ allProjects, allLists, projectId, addList }) => {
-  const project = allProjects[projectId];
-  const listsIds = project.projectLists;
+const Board = ({ allBoards, allLists, boardId, addList }) => {
+  const board = allBoards[boardId];
+  const listsIds = board.boardLists;
 
   const doSomething = e => {
     e.preventDefault();
     const title = e.target.children.title.value;
-    addList(title, projectId);
+    addList(title, boardId);
   };
 
   return (
     <>
-      <h2>{project.title}</h2>
+      <h2>{board.title}</h2>
       <form onSubmit={e => doSomething(e)}>
         <input placeholder="Title" name="title" />
         <button type="submit">Add list</button>
@@ -29,12 +29,12 @@ const Project = ({ allProjects, allLists, projectId, addList }) => {
   );
 };
 
-Project.propTypes = {
-  projectId: PropTypes.string.isRequired,
-  allProjects: PropTypes.shape({
-    project: PropTypes.shape({
-      title: 'first_project',
-      projectLists: ['1'],
+Board.propTypes = {
+  boardId: PropTypes.string.isRequired,
+  allBoards: PropTypes.shape({
+    board: PropTypes.shape({
+      title: 'first_board',
+      boardLists: ['1'],
     }),
   }).isRequired,
   allLists: PropTypes.shape({}).isRequired,
@@ -42,8 +42,8 @@ Project.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  allProjects: state.entities.data.allProjects.byId,
+  allBoards: state.entities.data.allBoards.byId,
   allLists: state.entities.data.allLists.byId,
 });
 
-export default connect(mapStateToProps, { addList })(Project);
+export default connect(mapStateToProps, { addList })(Board);

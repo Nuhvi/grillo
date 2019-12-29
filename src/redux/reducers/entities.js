@@ -3,15 +3,15 @@ import { entities as initialState } from '../store/initial-states';
 import mergeState from '../../utils/merge-state';
 
 const addList = (state, action) => {
-  const { title, projectId } = action;
+  const { title, boardId } = action;
   const newListId = Math.floor(Math.random() * 1000000).toString();
 
   const newState = {
     data: {
-      allProjects: {
+      allBoards: {
         byId: {
-          [projectId]: {
-            projectLists: newListId,
+          [boardId]: {
+            boardLists: newListId,
           },
         },
       },
