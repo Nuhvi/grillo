@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { addList } from '../redux/actions/entities';
-import ListItem from './List';
+import { addList } from '../../redux/actions/entities';
+import ListItem from '../List';
 
 const Board = ({ allBoards, boardId, addList }) => {
   const board = allBoards[boardId];
