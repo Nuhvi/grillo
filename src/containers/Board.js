@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { entities } from '../../redux/actions';
+import { addList } from '../redux/actions/entities';
+import ListItem from './List';
 
-const { addList } = entities;
-
-const Board = ({ allBoards, allLists, boardId, addList }) => {
+const Board = ({ allBoards, boardId, addList }) => {
   const board = allBoards[boardId];
   const listsIds = board.boardLists;
 
@@ -18,13 +17,15 @@ const Board = ({ allBoards, allLists, boardId, addList }) => {
   return (
     <>
       <h2>{board.title}</h2>
-      <form onSubmit={e => doSomething(e)}>
-        <input placeholder="Title" name="title" />
-        <button type="submit">Add list</button>
-      </form>
-      {listsIds.map(listId => {
-        return <p key={listId}>{allLists[listId].title}</p>;
-      })}
+      <div style={{ display: 'flex' }}>
+        {listsIds.map(listId => {
+          return <ListItem key={listId} id={listId} />;
+        })}
+        <form onSubmit={e => doSomething(e)}>
+          <input placeholder="Title" name="title" />
+          <button type="submit">Add list</button>
+        </form>
+      </div>
     </>
   );
 };
@@ -37,13 +38,11 @@ Board.propTypes = {
       boardLists: ['1'],
     }),
   }).isRequired,
-  allLists: PropTypes.shape({}).isRequired,
   addList: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
   allBoards: state.entities.allBoards.byId,
-  allLists: state.entities.allLists.byId,
 });
 
 export default connect(mapStateToProps, { addList })(Board);
