@@ -7,18 +7,16 @@ const addList = (state, action) => {
   const newListId = Math.floor(Math.random() * 1000000).toString();
 
   const newState = {
-    data: {
-      allBoards: {
-        byId: {
-          [boardId]: {
-            boardLists: newListId,
-          },
+    allBoards: {
+      byId: {
+        [boardId]: {
+          boardLists: newListId,
         },
       },
-      allLists: {
-        byId: {
-          [newListId]: { title, cards: [] },
-        },
+    },
+    allLists: {
+      byId: {
+        [newListId]: { title, cards: [] },
       },
     },
   };

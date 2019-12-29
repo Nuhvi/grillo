@@ -42,8 +42,8 @@ Board.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  allBoards: state.entities.data.allBoards.byId,
-  allLists: state.entities.data.allLists.byId,
+  allBoards: state.entities.allBoards.byId,
+  allLists: state.entities.allLists.byId,
 });
 
 export default connect(mapStateToProps, { addList })(Board);
