@@ -2,16 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getCard } from './selectors';
+import CardItem from './CardItem';
 
 const Card = ({ card }) => {
   const { title } = card;
 
-  return <p>{title}</p>;
+  return <CardItem title={title} />;
 };
 
 Card.propTypes = {
   card: PropTypes.shape({
-    title: 'first_board',
+    title: PropTypes.string.isRequired,
   }).isRequired,
 };
 

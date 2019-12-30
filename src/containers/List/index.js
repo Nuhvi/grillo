@@ -11,8 +11,8 @@ const List = ({ listWithCards }) => {
 
 List.propTypes = {
   listWithCards: PropTypes.shape({
-    title: 'first_board',
-    cardIds: PropTypes.shape([]),
+    title: PropTypes.string.isRequired,
+    cardIds: PropTypes.array.isRequired,
   }).isRequired,
 };
 

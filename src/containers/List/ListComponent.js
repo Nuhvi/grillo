@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import Card from '../Card';
 
 const Wrapper = styled.div`
   display: flex;
@@ -14,7 +15,9 @@ const ListComponent = ({ title, cardIds }) => {
   return (
     <Wrapper>
       <h2>{title}</h2>
-      {cardIds}
+      {cardIds.map(cardId => {
+        return <Card key={cardId} cardId={cardId} />;
+      })}
     </Wrapper>
   );
 };
