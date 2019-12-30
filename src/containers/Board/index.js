@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import List from '../List';
-import ListsWrapper from './ListsWrapper';
+import { ListsWrapper } from './components';
 import { getBoardWithLists } from './selectors';
 
 const Board = ({ boardWithLists }) => {

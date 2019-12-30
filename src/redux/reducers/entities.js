@@ -21,6 +21,10 @@ const initialState = {
         title: 'second_list',
         boardId: '1',
       },
+      '3': {
+        title: 'third_list',
+        boardId: '1',
+      },
     },
   },
   allCards: {
@@ -34,8 +38,20 @@ const initialState = {
         listId: '2',
       },
       '3': {
-        title: 'second_card',
+        title: 'third_card',
         listId: '2',
+      },
+      '4': {
+        title: 'fourth_card',
+        listId: '3',
+      },
+      '5': {
+        title: 'fifth_card',
+        listId: '3',
+      },
+      '6': {
+        title: 'sixth_card',
+        listId: '3',
       },
     },
   },
