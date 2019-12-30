@@ -8,7 +8,6 @@ const initialState = {
     byId: {
       '1': {
         title: 'first_board',
-        boardLists: ['1', '2'],
       },
     },
   },
@@ -31,6 +30,10 @@ const initialState = {
         listId: '1',
       },
       '2': {
+        title: 'second_card',
+        listId: '2',
+      },
+      '3': {
         title: 'second_card',
         listId: '2',
       },

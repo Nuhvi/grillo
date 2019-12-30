@@ -1,24 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { getCard } from './selectors';
 
-const Card = ({ id, allCards }) => {
-  const { title } = allCards[id];
+const Card = ({ card }) => {
+  const { title } = card;
 
   return <p>{title}</p>;
 };
 
 Card.propTypes = {
-  id: PropTypes.string.isRequired,
-  allCards: PropTypes.shape({
-    list: PropTypes.shape({
-      title: 'first_board',
-    }),
+  card: PropTypes.shape({
+    title: 'first_board',
   }).isRequired,
 };
 
-const mapStateToProps = state => ({
-  allCards: state.entities.allCards.byId,
+const mapStateToProps = (state, props) => ({
+  card: getCard(state, props),
 });
 
 export default connect(mapStateToProps)(Card);
