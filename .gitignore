@@ -8,3 +8,7 @@ stats.json
 .DS_Store
 npm-debug.log
 .idea
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
