@@ -2,25 +2,22 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ListComponent from '../../components/ListComponent';
+import { getListWithCards } from './selectors';
 
-const List = ({ id, allLists }) => {
-  const { title } = allLists[id];
-
-  return <ListComponent title={title} />;
+const List = ({ listWithCards }) => {
+  const { title, cardIds } = listWithCards;
+  return <ListComponent title={title} cardIds={cardIds} />;
 };
 
 List.propTypes = {
-  id: PropTypes.string.isRequired,
-  allLists: PropTypes.shape({
-    list: PropTypes.shape({
-      title: 'first_board',
-      boardLists: ['1'],
-    }),
+  listWithCards: PropTypes.shape({
+    title: 'first_board',
+    cardIds: PropTypes.shape([]),
   }).isRequired,
 };
 
-const mapStateToProps = state => ({
-  allLists: state.entities.allLists.byId,
+const mapStateToProps = (state, props) => ({
+  listWithCards: getListWithCards(state, props),
 });
 
 export default connect(mapStateToProps)(List);

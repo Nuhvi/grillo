@@ -13,11 +13,11 @@ export const entities = {
     byId: {
       '1': {
         title: 'first_list',
-        ListCards: ['1'],
+        boardId: '1',
       },
       '2': {
         title: 'second_list',
-        ListCards: ['2'],
+        boardId: '1',
       },
     },
   },
@@ -25,9 +25,11 @@ export const entities = {
     byId: {
       '1': {
         title: 'first_card',
+        listId: '1',
       },
       '2': {
         title: 'second_card',
+        listId: '2',
       },
     },
   },

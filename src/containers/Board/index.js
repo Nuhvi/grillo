@@ -19,7 +19,7 @@ const Board = ({ allBoards, boardId, addList }) => {
       <h2>{board.title}</h2>
       <div style={{ display: 'flex' }}>
         {listsIds.map(listId => {
-          return <ListItem key={listId} id={listId} />;
+          return <ListItem key={listId} listId={listId} />;
         })}
         <form onSubmit={e => doSomething(e)}>
           <input placeholder="Title" name="title" />
