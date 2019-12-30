@@ -2,20 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import List from '../List';
+import ListsWrapper from './ListsWrapper';
 import { getBoardWithLists } from './selectors';
 
 const Board = ({ boardWithLists }) => {
   const { title, listIds } = boardWithLists;
 
   return (
-    <>
+    <div>
       <h2>{title}</h2>
-      <div style={{ display: 'flex' }}>
+      <ListsWrapper>
         {listIds.map(listId => {
           return <List key={listId} listId={listId} />;
         })}
-      </div>
-    </>
+      </ListsWrapper>
+    </div>
   );
 };
 
