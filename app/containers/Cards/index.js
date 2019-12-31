@@ -7,16 +7,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 import makeSelectCards from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import messages from './messages';
+
 import CardItem from './CardItem';
 
 export function Cards({ cards }) {
@@ -25,7 +23,6 @@ export function Cards({ cards }) {
 
   return (
     <div>
-      <FormattedMessage {...messages.header} />
       {cards.map(card => (
         <CardItem key={card.id} card={card} />
       ))}
@@ -34,7 +31,6 @@ export function Cards({ cards }) {
 }
 
 Cards.propTypes = {
-  dispatch: PropTypes.func.isRequired,
   cards: PropTypes.array.isRequired,
 };
 

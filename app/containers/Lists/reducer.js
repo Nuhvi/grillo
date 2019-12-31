@@ -43,9 +43,14 @@ export const initialState = {
 const listsReducer = (state = initialState, action) =>
   produce(state, draft => {
     const newId = Math.floor(Math.random() * 100000);
+    const { title, idBoard } = action;
     switch (action.type) {
       case ADD_LIST:
-        draft[newId] = { id: newId, title: action.title, idBoard: '1' };
+        draft[newId] = {
+          id: newId,
+          title,
+          idBoard,
+        };
         break;
     }
   });

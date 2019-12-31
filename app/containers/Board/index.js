@@ -8,7 +8,6 @@ import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { useInjectSaga } from 'utils/injectSaga';
@@ -16,7 +15,6 @@ import { useInjectReducer } from 'utils/injectReducer';
 import makeSelectBoard from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import messages from './messages';
 
 import BoardLists from '../Lists';
 
@@ -33,14 +31,12 @@ export function Board({ board }) {
         <meta name="description" content="Description of Board" />
       </Helmet>
       <h1>{title}</h1>
-      <FormattedMessage {...messages.header} />
       <BoardLists idBoard={id} />
     </div>
   );
 }
 
 Board.propTypes = {
-  dispatch: PropTypes.func.isRequired,
   board: PropTypes.object.isRequired,
 };
 

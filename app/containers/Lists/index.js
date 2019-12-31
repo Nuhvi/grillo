@@ -7,7 +7,6 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
@@ -16,37 +15,29 @@ import { useInjectReducer } from 'utils/injectReducer';
 import makeSelectLists from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import messages from './messages';
-import List from './List';
+import List from './components/List';
 import ListsCanvas from './ListsCanvas';
 import { addList } from './actions';
+import Form from './components/FormAddList';
 
-export function Lists({ lists, onAddList }) {
+export function Lists({ idBoard, lists, onAddList }) {
   useInjectReducer({ key: 'allLists', reducer });
   useInjectSaga({ key: 'allLists', saga });
 
   return (
     <div>
-      <FormattedMessage {...messages.header} />
       <ListsCanvas>
         {lists.map(list => (
           <List key={list.id} list={list} />
         ))}
+        <Form idBoard={idBoard} submitHandler={onAddList} />
       </ListsCanvas>
-      <form
-        onSubmit={evt => {
-          evt.preventDefault();
-          onAddList(evt);
-        }}
-      >
-        <input name="title" placeholder="add list" />
-        <button type="submit">Add list</button>
-      </form>
     </div>
   );
 }
 
 Lists.propTypes = {
+  idBoard: PropTypes.string.isRequired,
   lists: PropTypes.array.isRequired,
   onAddList: PropTypes.func.isRequired,
 };
@@ -58,7 +49,7 @@ const mapStateToProps = (state, props) =>
 
 function mapDispatchToProps(dispatch) {
   return {
-    onAddList: evt => dispatch(addList(evt.target.children.title.value.trim())),
+    onAddList: (title, idBoard) => dispatch(addList(title, idBoard)),
   };
 }
 
