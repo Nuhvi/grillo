@@ -6,7 +6,7 @@ import { initialState } from './reducer';
  * Direct selector to the lists state domain
  */
 
-const selectListsDomain = state => state.allLlists || initialState;
+const selectListsDomain = state => state.allLists || initialState;
 
 /**
  * Other specific selectors

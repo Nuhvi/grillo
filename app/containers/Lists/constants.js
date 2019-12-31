@@ -4,4 +4,4 @@
  *
  */
 
-export const DEFAULT_ACTION = 'app/Lists/DEFAULT_ACTION';
+export const ADD_LIST = 'app/Lists/ADD_LIST';

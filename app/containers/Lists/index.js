@@ -18,24 +18,37 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import List from './List';
+import ListsCanvas from './ListsCanvas';
+import { addList } from './actions';
 
-export function Lists({ lists }) {
+export function Lists({ lists, onAddList }) {
   useInjectReducer({ key: 'allLists', reducer });
   useInjectSaga({ key: 'allLists', saga });
 
   return (
     <div>
       <FormattedMessage {...messages.header} />
-      {lists.map(list => (
-        <List key={list.id} list={list} />
-      ))}
+      <ListsCanvas>
+        {lists.map(list => (
+          <List key={list.id} list={list} />
+        ))}
+      </ListsCanvas>
+      <form
+        onSubmit={evt => {
+          evt.preventDefault();
+          onAddList(evt);
+        }}
+      >
+        <input name="title" placeholder="add list" />
+        <button type="submit">Add list</button>
+      </form>
     </div>
   );
 }
 
 Lists.propTypes = {
-  dispatch: PropTypes.func.isRequired,
   lists: PropTypes.array.isRequired,
+  onAddList: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state, props) =>
@@ -45,7 +58,7 @@ const mapStateToProps = (state, props) =>
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    onAddList: evt => dispatch(addList(evt.target.children.title.value.trim())),
   };
 }
 

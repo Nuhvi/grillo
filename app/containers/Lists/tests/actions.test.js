@@ -1,13 +1,13 @@
-import { defaultAction } from '../actions';
-import { DEFAULT_ACTION } from '../constants';
+import { addList } from '../actions';
+import { ADD_LIST } from '../constants';
 
 describe('Lists actions', () => {
   describe('Default Action', () => {
     it('has a type of DEFAULT_ACTION', () => {
       const expected = {
-        type: DEFAULT_ACTION,
+        type: ADD_LIST,
       };
-      expect(defaultAction()).toEqual(expected);
+      expect(addList()).toEqual(expected);
     });
   });
 });

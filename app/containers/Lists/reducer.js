@@ -4,7 +4,7 @@
  *
  */
 import produce from 'immer';
-import { DEFAULT_ACTION } from './constants';
+import { ADD_LIST } from './constants';
 
 export const initialState = {
   '11': {
@@ -41,9 +41,11 @@ export const initialState = {
 
 /* eslint-disable default-case, no-param-reassign */
 const listsReducer = (state = initialState, action) =>
-  produce(state, (/* draft */) => {
+  produce(state, draft => {
+    const newId = Math.floor(Math.random() * 100000);
     switch (action.type) {
-      case DEFAULT_ACTION:
+      case ADD_LIST:
+        draft[newId] = { id: newId, title: action.title, idBoard: '1' };
         break;
     }
   });

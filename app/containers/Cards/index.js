@@ -1,52 +1,46 @@
 /**
  *
- * Board
+ * Cards
  *
  */
 
-import React, { memo } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
-import makeSelectBoard from './selectors';
+import makeSelectCards from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
+import CardItem from './CardItem';
 
-import BoardLists from '../Lists';
-
-export function Board({ board }) {
-  useInjectReducer({ key: 'allBoards', reducer });
-  useInjectSaga({ key: 'allBoards', saga });
-
-  const { title, id } = board;
+export function Cards({ cards }) {
+  useInjectReducer({ key: 'allCards', reducer });
+  useInjectSaga({ key: 'allCards', saga });
 
   return (
     <div>
-      <Helmet>
-        <title>{title}</title>
-        <meta name="description" content="Description of Board" />
-      </Helmet>
-      <h1>{title}</h1>
       <FormattedMessage {...messages.header} />
-      <BoardLists idBoard={id} />
+      {cards.map(card => (
+        <CardItem key={card.id} card={card} />
+      ))}
     </div>
   );
 }
 
-Board.propTypes = {
+Cards.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  board: PropTypes.object.isRequired,
+  cards: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = (state, props) =>
   createStructuredSelector({
-    board: makeSelectBoard(props.match.params.idBoard),
+    cards: makeSelectCards(props.idList),
   });
 
 function mapDispatchToProps(dispatch) {
@@ -60,7 +54,4 @@ const withConnect = connect(
   mapDispatchToProps,
 );
 
-export default compose(
-  withConnect,
-  memo,
-)(Board);
+export default compose(withConnect)(Cards);
