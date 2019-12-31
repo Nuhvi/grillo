@@ -21,7 +21,7 @@ function List(props) {
   const { title, id } = props.list;
 
   return (
-    <Wrapper component="article">
+    <Wrapper component="article" elevation={4}>
       <CardContent>
         <Typography gutterBottom variant="h5" component="h3">
           {title}
