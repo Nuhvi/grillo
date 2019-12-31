@@ -19,16 +19,17 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 
-export function Board() {
-  useInjectReducer({ key: 'board', reducer });
-  useInjectSaga({ key: 'board', saga });
+export function Board({ board }) {
+  useInjectReducer({ key: 'allBoards', reducer });
+  useInjectSaga({ key: 'allBoards', saga });
 
   return (
     <div>
       <Helmet>
-        <title>Board</title>
+        <title>{board.title}</title>
         <meta name="description" content="Description of Board" />
       </Helmet>
+      <h1>{board.title}</h1>
       <FormattedMessage {...messages.header} />
     </div>
   );
@@ -36,11 +37,13 @@ export function Board() {
 
 Board.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  board: PropTypes.shape({}).isRequired,
 };
 
-const mapStateToProps = createStructuredSelector({
-  board: makeSelectBoard(),
-});
+const mapStateToProps = (state, props) =>
+  createStructuredSelector({
+    board: makeSelectBoard(props.match.params.idBoard),
+  });
 
 function mapDispatchToProps(dispatch) {
   return {

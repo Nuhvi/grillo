@@ -5,7 +5,7 @@ import { initialState } from './reducer';
  * Direct selector to the board state domain
  */
 
-const selectBoardDomain = state => state.board || initialState;
+const selectBoardDomain = state => state.allBoards || initialState;
 
 /**
  * Other specific selectors
@@ -15,10 +15,10 @@ const selectBoardDomain = state => state.board || initialState;
  * Default selector used by Board
  */
 
-const makeSelectBoard = () =>
+const makeSelectBoard = idBoard =>
   createSelector(
     selectBoardDomain,
-    substate => substate,
+    substate => substate[idBoard],
   );
 
 export default makeSelectBoard;
