@@ -15,16 +15,24 @@ import BoardPage from 'containers/Board/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
 import GlobalStyle from 'global-styles';
+import { ThemeProvider as StyledTheme } from 'styled-components';
+import { CssBaseline, StylesProvider, ThemeProvider } from '@material-ui/core/';
+import theme from 'theme';
 
 export default function App() {
   return (
-    <div>
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route path="/b/:idBoard" component={BoardPage} />
-        <Route component={NotFoundPage} />
-      </Switch>
-      <GlobalStyle />
-    </div>
+    <StylesProvider injectFirst>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <GlobalStyle />
+        <StyledTheme theme={theme}>
+          <Switch>
+            <Route exact path="/" component={HomePage} />
+            <Route path="/b/:idBoard" component={BoardPage} />
+            <Route component={NotFoundPage} />
+          </Switch>
+        </StyledTheme>
+      </ThemeProvider>
+    </StylesProvider>
   );
 }
