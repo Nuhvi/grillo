@@ -14,7 +14,7 @@ import HomePage from 'containers/HomePage/Loadable';
 import BoardPage from 'containers/Board/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
-import GlobalStyle from '../../global-styles';
+import GlobalStyle from 'global-styles';
 
 export default function App() {
   return (

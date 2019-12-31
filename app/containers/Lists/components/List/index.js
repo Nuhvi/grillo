@@ -6,7 +6,7 @@
 
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
-import Cards from '../../../Cards';
+import Cards from 'containers/Cards';
 function List({ list }) {
   const { title, id } = list;
 
