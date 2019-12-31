@@ -17,6 +17,7 @@ import reducer from './reducer';
 import saga from './saga';
 
 import BoardLists from '../Lists';
+import Wrapper from './BoardWrapper';
 
 export function Board({ board }) {
   useInjectReducer({ key: 'allBoards', reducer });
@@ -25,14 +26,14 @@ export function Board({ board }) {
   const { title, id } = board;
 
   return (
-    <div>
+    <Wrapper>
       <Helmet>
         <title>{title}</title>
         <meta name="description" content="Description of Board" />
       </Helmet>
       <h1>{title}</h1>
       <BoardLists idBoard={id} />
-    </div>
+    </Wrapper>
   );
 }
 

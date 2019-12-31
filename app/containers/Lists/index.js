@@ -12,27 +12,25 @@ import { compose } from 'redux';
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
+import Form from 'components/FormAddList';
+import List from 'components/List';
 import makeSelectLists from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import List from './components/List';
 import ListsCanvas from './ListsCanvas';
 import { addList } from './actions';
-import Form from './components/FormAddList';
 
 export function Lists({ idBoard, lists, onAddList }) {
   useInjectReducer({ key: 'allLists', reducer });
   useInjectSaga({ key: 'allLists', saga });
 
   return (
-    <div>
-      <ListsCanvas>
-        {lists.map(list => (
-          <List key={list.id} list={list} />
-        ))}
-        <Form idBoard={idBoard} submitHandler={onAddList} />
-      </ListsCanvas>
-    </div>
+    <ListsCanvas>
+      {lists.map(list => (
+        <List key={list.id} list={list} />
+      ))}
+      <Form idBoard={idBoard} submitHandler={onAddList} />
+    </ListsCanvas>
   );
 }
 

@@ -11,22 +11,23 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
+import CardItem from 'components/CardItem';
 import makeSelectCards from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 
-import CardItem from './CardItem';
+import CardsListWrapper from './CardsListWrapper';
 
 export function Cards({ cards }) {
   useInjectReducer({ key: 'allCards', reducer });
   useInjectSaga({ key: 'allCards', saga });
 
   return (
-    <div>
+    <CardsListWrapper>
       {cards.map(card => (
         <CardItem key={card.id} card={card} />
       ))}
-    </div>
+    </CardsListWrapper>
   );
 }
 
