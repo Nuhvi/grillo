@@ -8,6 +8,12 @@ import { initialState } from './reducer';
 
 const selectListsDomain = state => state.allLists || initialState;
 
+const selectBoardLists = idBoard =>
+  createSelector(
+    selectListsDomain,
+    substate => _.filter(substate, list => list.idBoard === idBoard),
+  );
+
 /**
  * Other specific selectors
  */
@@ -16,11 +22,11 @@ const selectListsDomain = state => state.allLists || initialState;
  * Default selector used by Lists
  */
 
-const makeSelectLists = idBoard =>
+const selectBoardListsOrderedByPos = idBoard =>
   createSelector(
-    selectListsDomain,
-    substate => _.filter(substate, list => list.idBoard === idBoard),
+    selectBoardLists(idBoard),
+    substate => _.sortBy(substate, list => list.pos),
   );
 
-export default makeSelectLists;
-export { selectListsDomain };
+export default selectBoardListsOrderedByPos;
+export { selectBoardLists, selectBoardListsOrderedByPos };

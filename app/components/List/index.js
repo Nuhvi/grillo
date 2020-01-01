@@ -23,11 +23,12 @@ function List({ list, draggableIndex }) {
           elevation={4}
           className="list"
           {...provided.draggableProps}
-          {...provided.dragHandleProps}
           ref={provided.innerRef}
         >
-          <ListTitle>{title}</ListTitle>
-          <Cards idList={id} />
+          <div {...provided.dragHandleProps}>
+            <ListTitle>{title}</ListTitle>
+          </div>
+          <Cards idList={id} index={draggableIndex} />
         </Wrapper>
       )}
     </Draggable>

@@ -16,7 +16,6 @@ import BoardLists from 'containers/Lists';
 import makeSelectBoard from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-
 import BoardTitle from './BoardTitle';
 import Wrapper from './BoardWrapper';
 
