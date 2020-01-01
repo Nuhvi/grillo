@@ -4,6 +4,7 @@
  *
  */
 import produce from 'immer';
+import idGenerator from 'utils/idGenerator';
 import { ADD_LIST } from './constants';
 
 export const initialState = {
@@ -42,7 +43,7 @@ export const initialState = {
 /* eslint-disable default-case, no-param-reassign */
 const listsReducer = (state = initialState, action) =>
   produce(state, draft => {
-    const newId = Math.floor(Math.random() * 100000);
+    const newId = idGenerator();
     const { title, idBoard } = action;
     switch (action.type) {
       case ADD_LIST:
