@@ -12,11 +12,12 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
+import BoardLists from 'containers/Lists';
 import makeSelectBoard from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 
-import BoardLists from '../Lists';
+import BoardTitle from './BoardTitle';
 import Wrapper from './BoardWrapper';
 
 export function Board({ board }) {
@@ -31,7 +32,7 @@ export function Board({ board }) {
         <title>{title}</title>
         <meta name="description" content="Description of Board" />
       </Helmet>
-      <h1>{title}</h1>
+      <BoardTitle>{title}</BoardTitle>
       <BoardLists idBoard={id} />
     </Wrapper>
   );
