@@ -4,10 +4,10 @@
  *
  */
 
-import { DEFAULT_ACTION } from './constants';
+import { ADD_CARD } from './constants';
 
-export function defaultAction() {
-  return {
-    type: DEFAULT_ACTION,
-  };
-}
+export const addCard = (title, idList) => ({
+  type: ADD_CARD,
+  title,
+  idList,
+});

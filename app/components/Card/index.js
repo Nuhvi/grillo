@@ -11,10 +11,7 @@ import styled from 'styled-components';
 
 const Wrapper = styled(Card)`
   max-height: 100%;
-  white-space: normal;
-
   padding: 0 ${props => props.theme.spacing(2)}px;
-  margin-bottom: ${props => props.theme.spacing(2)}px;
 `;
 
 function CardItem({ card }) {

@@ -4,4 +4,4 @@
  *
  */
 
-export const DEFAULT_ACTION = 'app/Cards/DEFAULT_ACTION';
+export const ADD_CARD = 'app/Cards/ADD_CARD';
