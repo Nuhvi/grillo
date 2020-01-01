@@ -1,33 +1,31 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+/**
+ *
+ * List
+ *
+ */
 
-import Ul from './Ul';
-import Wrapper from './Wrapper';
+import React, { memo } from 'react';
+import PropTypes from 'prop-types';
+import Cards from 'containers/Cards';
+import ListTitle from './ListTitle';
+
+import Wrapper from './ListWrapper';
 
 function List(props) {
-  const ComponentToRender = props.component;
-  let content = <div />;
-
-  // If we have items, render them
-  if (props.items) {
-    content = props.items.map(item => (
-      <ComponentToRender key={`item-${item.id}`} item={item} />
-    ));
-  } else {
-    // Otherwise render a single component
-    content = <ComponentToRender />;
-  }
+  const { title, id } = props.list;
 
   return (
-    <Wrapper>
-      <Ul>{content}</Ul>
-    </Wrapper>
+    <div>
+      <Wrapper component="article" elevation={4}>
+        <ListTitle>{title}</ListTitle>
+        <Cards idList={id} />
+      </Wrapper>
+    </div>
   );
 }
 
 List.propTypes = {
-  component: PropTypes.elementType.isRequired,
-  items: PropTypes.array,
+  list: PropTypes.object.isRequired,
 };
 
-export default List;
+export default memo(List);
