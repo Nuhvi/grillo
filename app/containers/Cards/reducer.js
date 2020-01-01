@@ -36,6 +36,7 @@ const cardsReducer = (state = initialState, action) =>
           id: newId,
           title,
           idList,
+          pos: 999999,
         };
         break;
     }

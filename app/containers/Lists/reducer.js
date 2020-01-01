@@ -57,6 +57,7 @@ const listsReducer = (state = initialState, action) =>
           id: newId,
           title,
           idBoard,
+          pos: 999999,
         };
         break;
       case CHANGE_POSITION:
