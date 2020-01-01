@@ -4,7 +4,7 @@
  *
  */
 import produce from 'immer';
-import idGenerator from 'utils/idGenerator';
+import idGenerator from 'utils/lib/idGenerator';
 import { ADD_LIST, CHANGE_POSITION } from './constants';
 
 export const initialState = {
