@@ -1,13 +1,18 @@
+import _ from 'lodash';
+
 const getNewPos = (collection, source, destination) => {
-  const destinationPos = collection[destination].pos;
+  let beforeOrAfterPos =
+    destination > source
+      ? _.last(collection).pos + 100000
+      : collection[0].pos - 100000;
+
   let itemAfterOrBeforeDestination = null;
   const shift = destination > source ? +1 : -1;
-  let beforeOrAfterPos = destination > source ? 999999 : 0;
-
   itemAfterOrBeforeDestination = collection[destination + shift];
-
   if (itemAfterOrBeforeDestination)
     beforeOrAfterPos = itemAfterOrBeforeDestination.pos;
+
+  const destinationPos = collection[destination].pos;
 
   return (destinationPos + beforeOrAfterPos) / 2;
 };

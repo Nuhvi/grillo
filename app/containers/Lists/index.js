@@ -12,6 +12,7 @@ import { compose } from 'redux';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 import Form from 'components/FormAddList';
+import _ from 'lodash';
 import selectBoardListsOrderedByPos from './selectors';
 import reducer from './reducer';
 import { changePosList, addList } from './actions';
@@ -27,7 +28,11 @@ export function Lists({ idBoard, lists, onAddList, onChangePosList }) {
   return (
     <ListsCanvas>
       <DraggableLists lists={lists} onChangePosList={onChangePosList} />
-      <Form idBoard={idBoard} submitHandler={onAddList} />
+      <Form
+        idBoard={idBoard}
+        newPos={_.last(lists).pos + 100000}
+        submitHandler={onAddList}
+      />
     </ListsCanvas>
   );
 }
@@ -45,7 +50,8 @@ const mapStateToProps = (state, props) =>
   });
 
 const mapDispatchToProps = dispatch => ({
-  onAddList: (title, idBoard) => dispatch(addList(title, idBoard)),
+  onAddList: (title, idBoard, lists) =>
+    dispatch(addList(title, idBoard, lists)),
   onChangePosList: (lists, source, destination) =>
     dispatch(changePosList(lists, source, destination)),
 });
