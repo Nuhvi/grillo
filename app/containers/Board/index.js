@@ -19,7 +19,7 @@ import saga from './saga';
 import BoardTitle from './BoardTitle';
 import Wrapper from './BoardWrapper';
 
-export function Board({ board }) {
+export const Board = ({ board }) => {
   useInjectReducer({ key: 'allBoards', reducer });
   useInjectSaga({ key: 'allBoards', saga });
 
@@ -35,7 +35,7 @@ export function Board({ board }) {
       <BoardLists idBoard={id} />
     </Wrapper>
   );
-}
+};
 
 Board.propTypes = {
   board: PropTypes.object.isRequired,

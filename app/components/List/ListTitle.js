@@ -19,7 +19,7 @@ function ListTitle({ children }) {
 }
 
 ListTitle.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.string,
 };
 
 export default ListTitle;

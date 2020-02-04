@@ -22,7 +22,7 @@ import CardWrapper from './CardWrapper';
 import FormWrapper from './FormWrapper';
 import { addCard } from './actions';
 
-export function Cards({ idList, cards, onAddCard }) {
+export const Cards = ({ idList, cards, onAddCard }) => {
   useInjectReducer({ key: 'allCards', reducer });
   useInjectSaga({ key: 'allCards', saga });
 
@@ -38,7 +38,7 @@ export function Cards({ idList, cards, onAddCard }) {
       </FormWrapper>
     </CardsListWrapper>
   );
-}
+};
 
 Cards.propTypes = {
   idList: PropTypes.string.isRequired,

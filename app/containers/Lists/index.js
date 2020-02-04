@@ -21,7 +21,7 @@ import saga from './saga';
 import ListsCanvas from './ListsCanvas';
 
 import DraggableLists from './DraggableLists';
-export function Lists({ idBoard, lists, onAddList, onChangePosList }) {
+export const Lists = ({ idBoard, lists, onAddList, onChangePosList }) => {
   useInjectReducer({ key: 'allLists', reducer });
   useInjectSaga({ key: 'allLists', saga });
 
@@ -35,7 +35,7 @@ export function Lists({ idBoard, lists, onAddList, onChangePosList }) {
       />
     </ListsCanvas>
   );
-}
+};
 
 Lists.propTypes = {
   idBoard: PropTypes.string.isRequired,
