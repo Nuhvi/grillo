@@ -12,8 +12,8 @@ import ListTitle from './ListTitle';
 
 import Wrapper from './ListWrapper';
 
-function List({ list, draggableIndex }) {
-  const { title, id } = list;
+const List = ({ list, draggableIndex }) => {
+  const { title, id, idBoard } = list;
 
   return (
     <Draggable draggableId={id} index={draggableIndex}>
@@ -28,12 +28,12 @@ function List({ list, draggableIndex }) {
           <div {...provided.dragHandleProps}>
             <ListTitle>{title}</ListTitle>
           </div>
-          <Cards idList={id} index={draggableIndex} />
+          <Cards idList={id} idBoard={idBoard} index={draggableIndex} />
         </Wrapper>
       )}
     </Draggable>
   );
-}
+};
 
 List.propTypes = {
   list: PropTypes.object.isRequired,

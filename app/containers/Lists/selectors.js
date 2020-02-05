@@ -6,9 +6,9 @@ import { initialState } from './reducer';
  * Direct selector to the lists state domain
  */
 
-const selectListsDomain = state => state.allLists || initialState;
+export const selectListsDomain = state => state.allLists || initialState;
 
-const selectBoardLists = idBoard =>
+export const selectBoardLists = idBoard =>
   createSelector(
     selectListsDomain,
     substate => _.filter(substate, list => list.idBoard === idBoard),
@@ -22,11 +22,10 @@ const selectBoardLists = idBoard =>
  * Default selector used by Lists
  */
 
-const selectBoardListsOrderedByPos = idBoard =>
+export const selectBoardListsOrderedByPos = idBoard =>
   createSelector(
     selectBoardLists(idBoard),
     substate => _.sortBy(substate, list => list.pos),
   );
 
 export default selectBoardListsOrderedByPos;
-export { selectBoardLists, selectBoardListsOrderedByPos };
