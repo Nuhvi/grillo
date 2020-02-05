@@ -5,7 +5,7 @@
  */
 import produce from 'immer';
 import idGenerator from 'utils/lib/idGenerator';
-import { ADD_CARD } from './constants';
+import { ADD_CARD, CHANGE_POSITION } from './constants';
 
 export const initialState = {
   '111': {
@@ -29,15 +29,19 @@ export const initialState = {
 const cardsReducer = (state = initialState, action) =>
   produce(state, draft => {
     const newId = idGenerator();
-    const { title, idList } = action;
+    const { title, idCard, idList, newPos } = action;
     switch (action.type) {
       case ADD_CARD:
         draft[newId] = {
           id: newId,
           title,
           idList,
-          pos: 999999,
+          pos: newPos,
         };
+        break;
+      case CHANGE_POSITION:
+        draft[idCard].pos = newPos;
+        draft[idCard].idList = idList;
         break;
     }
   });
