@@ -1,7 +1,7 @@
 {
   "parser": "babel-eslint",
   "extends": ["airbnb", "prettier", "prettier/react"],
-  "plugins": ["prettier", "react", "jsx-a11y"],
+  "plugins": ["prettier", "redux-saga", "react", "react-hooks", "jsx-a11y"],
   "env": {
     "jest": true,
     "browser": true,
@@ -39,9 +39,6 @@
     "jsx-a11y/label-has-associated-control": [
       2,
       {
-        // NOTE: If this error triggers, either disable it or add
-        // your custom components, labels and attributes via these options
-        // See https://github.com/evcohen/eslint-plugin-jsx-a11y/blob/master/docs/rules/label-has-associated-control.md
         "controlComponents": ["Input"]
       }
     ],
