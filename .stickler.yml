@@ -1,5 +1,5 @@
 linters:
   eslint:
-    config: './.eslint.config'
+    config: './eslint.config'
   stylelint:
     config: './stylelint.config.js'
