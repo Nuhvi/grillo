@@ -12,24 +12,27 @@ export const initialState = {
     id: '111',
     title: 'first Card',
     idList: '11',
+    pos: 10000,
   },
   '112': {
     id: '112',
     title: 'second Card',
     idList: '12',
+    pos: 20000,
   },
   '121': {
     id: '121',
     title: 'third Card',
     idList: '12',
+    pos: 30000,
   },
 };
 
 /* eslint-disable default-case, no-param-reassign */
 const cardsReducer = (state = initialState, action) =>
   produce(state, draft => {
-    const newId = idGenerator();
     const { title, idCard, idList, newPos } = action;
+    const newId = idGenerator();
     switch (action.type) {
       case ADD_CARD:
         draft[newId] = {

@@ -11,7 +11,7 @@ export const selectListsDomain = state => state.allLists || initialState;
 export const selectBoardLists = idBoard =>
   createSelector(
     selectListsDomain,
-    substate => _.filter(substate, list => list.idBoard === idBoard),
+    allLists => _.filter(allLists, list => list.idBoard === idBoard),
   );
 
 /**
@@ -25,7 +25,7 @@ export const selectBoardLists = idBoard =>
 export const selectBoardListsOrderedByPos = idBoard =>
   createSelector(
     selectBoardLists(idBoard),
-    substate => _.sortBy(substate, list => list.pos),
+    boardLists => _.sortBy(boardLists, list => list.pos),
   );
 
 export default selectBoardListsOrderedByPos;

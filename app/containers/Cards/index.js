@@ -9,35 +9,35 @@ import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
-import CardItem from 'components/Card';
-import Form from 'components/FormAddCard';
-import makeSelectCards from './selectors';
+import FormAddCard from 'components/FormAddCard';
+import _ from 'lodash';
+import makeSelectListCardsOrderedByPos, {
+  makeSelectBoardCards,
+} from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-
+import DraggableCards from './DraggableCards';
 import CardsListWrapper from './CardsListWrapper';
-import CardWrapper from './CardWrapper';
 import FormWrapper from './FormWrapper';
 import { addCard } from './actions';
 
-export const Cards = ({ idList }) => {
+export const Cards = ({ idList, idBoard }) => {
   useInjectReducer({ key: 'allCards', reducer });
   useInjectSaga({ key: 'allCards', saga });
 
-  const cards = useSelector(makeSelectCards(idList));
-  const dispatch = useDispatch();
+  const listCards = useSelector(makeSelectListCardsOrderedByPos(idList));
 
-  const onAddCard = title => dispatch(addCard(title, idList));
+  const boardCards = useSelector(makeSelectBoardCards(idBoard));
+
+  const dispatch = useDispatch();
+  const onAddCard = title =>
+    dispatch(addCard(title, idList, _.last(boardCards).pos + 100000));
 
   return (
     <CardsListWrapper>
-      {cards.map(card => (
-        <CardWrapper key={card.id}>
-          <CardItem card={card} />
-        </CardWrapper>
-      ))}
+      <DraggableCards cards={listCards} idList={idList} />
       <FormWrapper>
-        <Form idList={idList} submitHandler={onAddCard} />
+        <FormAddCard idList={idList} submitHandler={onAddCard} />
       </FormWrapper>
     </CardsListWrapper>
   );
@@ -45,6 +45,7 @@ export const Cards = ({ idList }) => {
 
 Cards.propTypes = {
   idList: PropTypes.string.isRequired,
+  idBoard: PropTypes.string.isRequired,
 };
 
 export default memo(Cards);

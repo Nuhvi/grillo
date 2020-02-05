@@ -24,14 +24,19 @@ export const makeSelectBoardCards = idBoard =>
     },
   );
 
-/**
- * Default selector used by Cards
- */
-
-export const makeSelectCards = idList =>
+export const makeSelectListCards = idList =>
   createSelector(
     selectCardsDomain,
     allCards => _.filter(allCards, card => card.idList === idList),
   );
+/**
+ * Default selector used by Cards
+ */
 
-export default makeSelectCards;
+export const makeSelectListCardsOrderedByPos = idList =>
+  createSelector(
+    makeSelectListCards(idList),
+    listCards => _.sortBy(listCards, card => card.pos),
+  );
+
+export default makeSelectListCardsOrderedByPos;

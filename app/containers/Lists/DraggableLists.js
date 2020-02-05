@@ -19,7 +19,7 @@ const DraggableLists = ({ lists }) => {
   const allCards = useSelector(selectCardsDomain);
 
   const onDragEnd = result => {
-    let { source, destination } = result;
+    const { source, destination, draggableId } = result;
     if (
       destination === null ||
       (destination.droppableId === source.droppableId &&
@@ -27,14 +27,11 @@ const DraggableLists = ({ lists }) => {
     )
       return;
 
-    source = source.index;
-    destination = destination.index;
-
     if (result.type === 'list') {
       dispatch(
         changePosList({
-          idList: lists[source].id,
-          newPos: getNewPos(lists, source, destination),
+          idList: draggableId,
+          newPos: getNewPos(lists, source.index, destination.index),
         }),
       );
     } else {
@@ -43,10 +40,13 @@ const DraggableLists = ({ lists }) => {
 
       dispatch(
         changePosCard({
-          cards,
           idList,
-          source,
-          destination,
+          idCard: draggableId,
+          newPos: getNewPos(
+            _.sortBy(cards, card => card.pos),
+            source.index,
+            destination.index,
+          ),
         }),
       );
     }
