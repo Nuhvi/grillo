@@ -5,25 +5,26 @@
  */
 
 import React, { memo } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 import BoardLists from 'containers/Lists';
+import propTypes from 'prop-types';
 import makeSelectBoard from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import BoardTitle from './BoardTitle';
 import Wrapper from './BoardWrapper';
 
-export const Board = ({ board }) => {
+const Board = props => {
   useInjectReducer({ key: 'allBoards', reducer });
   useInjectSaga({ key: 'allBoards', saga });
 
-  const { title, id } = board;
+  const { idBoard } = props.match.params;
+  const board = useSelector(makeSelectBoard(idBoard));
+
+  const { title } = board;
 
   return (
     <Wrapper>
@@ -32,32 +33,15 @@ export const Board = ({ board }) => {
         <meta name="description" content="Description of Board" />
       </Helmet>
       <BoardTitle>{title}</BoardTitle>
-      <BoardLists idBoard={id} />
+      <BoardLists idBoard={idBoard} />
     </Wrapper>
   );
 };
 
 Board.propTypes = {
-  board: PropTypes.object.isRequired,
+  match: propTypes.shape({
+    params: propTypes.shape({}),
+  }),
 };
 
-const mapStateToProps = (state, props) =>
-  createStructuredSelector({
-    board: makeSelectBoard(props.match.params.idBoard),
-  });
-
-function mapDispatchToProps(dispatch) {
-  return {
-    dispatch,
-  };
-}
-
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
-
-export default compose(
-  withConnect,
-  memo,
-)(Board);
+export default memo(Board);

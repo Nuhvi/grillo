@@ -4,11 +4,9 @@
  *
  */
 
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 import CardItem from 'components/Card';
@@ -22,9 +20,14 @@ import CardWrapper from './CardWrapper';
 import FormWrapper from './FormWrapper';
 import { addCard } from './actions';
 
-export const Cards = ({ idList, cards, onAddCard }) => {
+export const Cards = ({ idList }) => {
   useInjectReducer({ key: 'allCards', reducer });
   useInjectSaga({ key: 'allCards', saga });
+
+  const cards = useSelector(makeSelectCards(idList));
+  const dispatch = useDispatch();
+
+  const onAddCard = title => dispatch(addCard(title, idList));
 
   return (
     <CardsListWrapper>
@@ -42,24 +45,6 @@ export const Cards = ({ idList, cards, onAddCard }) => {
 
 Cards.propTypes = {
   idList: PropTypes.string.isRequired,
-  cards: PropTypes.array.isRequired,
-  onAddCard: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state, props) =>
-  createStructuredSelector({
-    cards: makeSelectCards(props.idList),
-  });
-
-function mapDispatchToProps(dispatch) {
-  return {
-    onAddCard: (title, idList) => dispatch(addCard(title, idList)),
-  };
-}
-
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
-
-export default compose(withConnect)(Cards);
+export default memo(Cards);
