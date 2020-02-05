@@ -1,16 +1,54 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import styled from 'styled-components';
 import List from 'components/List';
+import { useSelector, useDispatch } from 'react-redux';
+import { changePosCard } from 'containers/Cards/actions';
+import { selectCardsDomain } from 'containers/Cards/selectors';
+import _ from 'lodash';
+import getNewPos from 'utils/lib/getNewPos';
+import { changePosList } from './actions';
 
-function DraggableLists({ lists, onChangePosList }) {
+const ListWrapper = styled.div`
+  display: flex;
+`;
+
+const DraggableLists = ({ lists }) => {
+  const dispatch = useDispatch();
+  const allCards = useSelector(selectCardsDomain);
+
   const onDragEnd = result => {
-    if (result.destination.index === result.source.index) return;
+    let { source, destination } = result;
+    if (
+      destination === null ||
+      (destination.droppableId === source.droppableId &&
+        destination.index === source.index)
+    )
+      return;
+
+    source = source.index;
+    destination = destination.index;
 
     if (result.type === 'list') {
-      const source = result.source.index;
-      const destination = result.destination.index;
-      onChangePosList(lists, source, destination);
+      dispatch(
+        changePosList({
+          idList: lists[source].id,
+          newPos: getNewPos(lists, source, destination),
+        }),
+      );
+    } else {
+      const idList = destination.droppableId;
+      const cards = _.filter(allCards, card => card.idList === idList);
+
+      dispatch(
+        changePosCard({
+          cards,
+          idList,
+          source,
+          destination,
+        }),
+      );
     }
   };
 
@@ -22,27 +60,22 @@ function DraggableLists({ lists, onChangePosList }) {
         type="list"
       >
         {provided => (
-          <div
-            style={{ display: 'flex' }}
-            {...provided.droppableProps}
-            ref={provided.innerRef}
-          >
+          <ListWrapper {...provided.droppableProps} ref={provided.innerRef}>
             {lists.map((list, index) => (
               <div key={list.id}>
                 <List list={list} draggableIndex={index} />
               </div>
             ))}
             {provided.placeholder}
-          </div>
+          </ListWrapper>
         )}
       </Droppable>
     </DragDropContext>
   );
-}
+};
 
 DraggableLists.propTypes = {
   lists: PropTypes.array.isRequired,
-  onChangePosList: PropTypes.func.isRequired,
 };
 
 export default DraggableLists;
