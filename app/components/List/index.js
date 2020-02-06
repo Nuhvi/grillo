@@ -16,10 +16,11 @@ const List = ({ list, draggableIndex, children }) => {
 
   return (
     <Draggable draggableId={id} index={draggableIndex}>
-      {provided => (
+      {(provided, snapshot) => (
         <ListContainer
           component="article"
           elevation={0}
+          variant={snapshot.isDragging ? 'outlined' : ''}
           className="list"
           {...provided.draggableProps}
           ref={provided.innerRef}

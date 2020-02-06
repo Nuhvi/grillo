@@ -34,10 +34,10 @@ export const Cards = ({ idList, idBoard }) => {
 
   return (
     <div>
-      <DraggableCards cards={listCards} idList={idList} />
       <FormWrapper>
         <FormAddCard idList={idList} submitHandler={onAddCard} />
       </FormWrapper>
+      <DraggableCards cards={listCards} idList={idList} />
     </div>
   );
 };
