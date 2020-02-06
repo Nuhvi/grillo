@@ -17,7 +17,6 @@ import makeSelectListCardsOrderedByPos, {
 import reducer from './reducer';
 import saga from './saga';
 import DraggableCards from './DraggableCards';
-import CardsListWrapper from './CardsListWrapper';
 import FormWrapper from './FormWrapper';
 import { addCard } from './actions';
 
@@ -34,12 +33,12 @@ export const Cards = ({ idList, idBoard }) => {
     dispatch(addCard(title, idList, _.last(boardCards).pos + 100000));
 
   return (
-    <CardsListWrapper>
+    <div>
       <DraggableCards cards={listCards} idList={idList} />
       <FormWrapper>
         <FormAddCard idList={idList} submitHandler={onAddCard} />
       </FormWrapper>
-    </CardsListWrapper>
+    </div>
   );
 };
 

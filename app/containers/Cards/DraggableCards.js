@@ -1,20 +1,34 @@
 import React from 'react';
 import CardItem from 'components/Card';
-import { Droppable } from 'react-beautiful-dnd';
+import { Droppable, Draggable } from 'react-beautiful-dnd';
 import PropTypes from 'prop-types';
+import CardsListWrapper from './CardsListWrapper';
 import CardWrapper from './CardWrapper';
 
 const DraggableCards = ({ cards, idList }) => (
   <Droppable droppableId={`${idList}`} type="card">
     {provided => (
-      <div {...provided.droppableProps} ref={provided.innerRef}>
+      <CardsListWrapper {...provided.droppableProps} ref={provided.innerRef}>
         {cards.map((card, index) => (
-          <CardWrapper key={card.id}>
-            <CardItem card={card} index={index} />
-          </CardWrapper>
+          <Draggable key={card.id} draggableId={`${card.id}`} index={index}>
+            {providedDraggable => (
+              <CardWrapper
+                key={card.id}
+                {...providedDraggable.draggableProps}
+                ref={providedDraggable.innerRef}
+              >
+                <CardItem
+                  card={card}
+                  index={index}
+                  dragHandleProps={providedDraggable.dragHandleProps}
+                />
+              </CardWrapper>
+            )}
+          </Draggable>
         ))}
+
         {provided.placeholder}
-      </div>
+      </CardsListWrapper>
     )}
   </Droppable>
 );

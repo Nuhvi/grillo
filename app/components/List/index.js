@@ -8,9 +8,9 @@ import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import Cards from 'containers/Cards';
 import { Draggable } from 'react-beautiful-dnd';
-import ListTitle from './ListTitle';
 
-import Wrapper from './ListWrapper';
+import ListHead from './ListHead';
+import ListContainer from './ListContainer';
 
 const List = ({ list, draggableIndex }) => {
   const { title, id, idBoard } = list;
@@ -18,18 +18,18 @@ const List = ({ list, draggableIndex }) => {
   return (
     <Draggable draggableId={id} index={draggableIndex}>
       {provided => (
-        <Wrapper
+        <ListContainer
           component="article"
           elevation={4}
           className="list"
           {...provided.draggableProps}
           ref={provided.innerRef}
         >
-          <div {...provided.dragHandleProps}>
-            <ListTitle>{title}</ListTitle>
-          </div>
+          <ListHead dragHandleProps={provided.dragHandleProps}>
+            {title}
+          </ListHead>
           <Cards idList={id} idBoard={idBoard} index={draggableIndex} />
-        </Wrapper>
+        </ListContainer>
       )}
     </Draggable>
   );

@@ -4,13 +4,13 @@ import { Typography } from '@material-ui/core';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
-  padding: ${props => props.theme.spacing(4)}px
+  padding: ${props => props.theme.spacing(2)}px
     ${props => props.theme.spacing(2)}px;
 `;
 
-function ListTitle({ children }) {
+function ListHead({ children, dragHandleProps }) {
   return (
-    <Wrapper>
+    <Wrapper {...dragHandleProps}>
       <Typography variant="h5" component="h3">
         {children}
       </Typography>
@@ -18,8 +18,9 @@ function ListTitle({ children }) {
   );
 }
 
-ListTitle.propTypes = {
+ListHead.propTypes = {
   children: PropTypes.string,
+  dragHandleProps: PropTypes.shape({}).isRequired,
 };
 
-export default ListTitle;
+export default ListHead;
