@@ -2,13 +2,12 @@ import React from 'react';
 import CardItem from 'components/Card';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import PropTypes from 'prop-types';
-import CardsListWrapper from './CardsListWrapper';
 import CardWrapper from './CardWrapper';
 
 const DraggableCards = ({ cards, idList }) => (
   <Droppable droppableId={`${idList}`} type="card">
     {provided => (
-      <CardsListWrapper {...provided.droppableProps} ref={provided.innerRef}>
+      <div {...provided.droppableProps} ref={provided.innerRef}>
         {cards.map((card, index) => (
           <Draggable key={card.id} draggableId={`${card.id}`} index={index}>
             {providedDraggable => (
@@ -28,7 +27,7 @@ const DraggableCards = ({ cards, idList }) => (
         ))}
 
         {provided.placeholder}
-      </CardsListWrapper>
+      </div>
     )}
   </Droppable>
 );

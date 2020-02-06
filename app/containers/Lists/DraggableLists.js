@@ -8,6 +8,7 @@ import { changePosCard } from 'containers/Cards/actions';
 import { selectCardsDomain } from 'containers/Cards/selectors';
 import _ from 'lodash';
 import getNewPos from 'utils/lib/getNewPos';
+import Cards from 'containers/Cards';
 import { changePosList } from './actions';
 
 const ListWrapper = styled.div`
@@ -59,9 +60,9 @@ const DraggableLists = ({ lists }) => {
         {provided => (
           <ListWrapper {...provided.droppableProps} ref={provided.innerRef}>
             {lists.map((list, index) => (
-              <div key={list.id}>
-                <List list={list} draggableIndex={index} />
-              </div>
+              <List key={list.id} list={list} draggableIndex={index}>
+                <Cards idList={list.id} idBoard={list.idBoard} />
+              </List>
             ))}
             {provided.placeholder}
           </ListWrapper>
