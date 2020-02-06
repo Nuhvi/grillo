@@ -1,29 +1,20 @@
-import _ from 'lodash';
-
 const getNewPos = (collection, source, destination) => {
-  let beforeOrAfterPos;
-  if (collection.length > 0) {
-    beforeOrAfterPos =
-      destination > source
-        ? _.last(collection).pos + 100000
-        : collection[0].pos - 100000;
-  } else {
-    beforeOrAfterPos = 0;
+  let destinationIndex = destination.index;
+
+  if (source.droppableId === destination.droppableId) {
+    const shift = source.index > destination.index ? 0 : 1;
+    destinationIndex += shift;
   }
 
-  let itemAfterOrBeforeDestination = null;
-  const shift = destination > source ? +1 : -1;
+  const itemBeforeDestination = collection[destinationIndex - 1];
+  const itemAtDestination = collection[destinationIndex];
 
-  itemAfterOrBeforeDestination = collection[destination + shift];
-
-  if (itemAfterOrBeforeDestination)
-    beforeOrAfterPos = itemAfterOrBeforeDestination.pos;
-
-  const destinationPos = collection[destination]
-    ? collection[destination].pos
-    : 0;
-
-  return (destinationPos + beforeOrAfterPos) / 2;
+  if (!itemAtDestination) {
+    return itemBeforeDestination ? itemBeforeDestination.pos + 100000 : 0;
+  }
+  return itemBeforeDestination
+    ? (itemBeforeDestination.pos + itemAtDestination.pos) / 2
+    : itemAtDestination.pos - 100000;
 };
 
 export default getNewPos;

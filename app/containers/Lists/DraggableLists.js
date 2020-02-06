@@ -31,22 +31,19 @@ const DraggableLists = ({ lists }) => {
       dispatch(
         changePosList({
           idList: draggableId,
-          newPos: getNewPos(lists, source.index, destination.index),
+          newPos: getNewPos(lists, source, destination),
         }),
       );
     } else {
       const idList = destination.droppableId;
       const cards = _.filter(allCards, card => card.idList === idList);
+      const sortedCards = _.sortBy(cards, card => card.pos);
 
       dispatch(
         changePosCard({
           idList,
           idCard: draggableId,
-          newPos: getNewPos(
-            _.sortBy(cards, card => card.pos),
-            source.index,
-            destination.index,
-          ),
+          newPos: getNewPos(sortedCards, source, destination),
         }),
       );
     }
