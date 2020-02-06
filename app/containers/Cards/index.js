@@ -4,62 +4,47 @@
  *
  */
 
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
-import CardItem from 'components/Card';
-import Form from 'components/FormAddCard';
-import makeSelectCards from './selectors';
+import FormAddCard from 'components/FormAddCard';
+import _ from 'lodash';
+import makeSelectListCardsOrderedByPos, {
+  makeSelectBoardCards,
+} from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-
-import CardsListWrapper from './CardsListWrapper';
-import CardWrapper from './CardWrapper';
+import DraggableCards from './DraggableCards';
 import FormWrapper from './FormWrapper';
 import { addCard } from './actions';
 
-export function Cards({ idList, cards, onAddCard }) {
+export const Cards = ({ idList, idBoard }) => {
   useInjectReducer({ key: 'allCards', reducer });
   useInjectSaga({ key: 'allCards', saga });
 
+  const listCards = useSelector(makeSelectListCardsOrderedByPos(idList));
+
+  const boardCards = useSelector(makeSelectBoardCards(idBoard));
+
+  const dispatch = useDispatch();
+  const onAddCard = title =>
+    dispatch(addCard(title, idList, _.last(boardCards).pos + 100000));
+
   return (
-    <CardsListWrapper>
-      {cards.map(card => (
-        <CardWrapper key={card.id}>
-          <CardItem card={card} />
-        </CardWrapper>
-      ))}
+    <div style={{ height: '100%' }}>
       <FormWrapper>
-        <Form idList={idList} submitHandler={onAddCard} />
+        <FormAddCard idList={idList} submitHandler={onAddCard} />
       </FormWrapper>
-    </CardsListWrapper>
+      <DraggableCards cards={listCards} idList={idList} />
+    </div>
   );
-}
+};
 
 Cards.propTypes = {
   idList: PropTypes.string.isRequired,
-  cards: PropTypes.array.isRequired,
-  onAddCard: PropTypes.func.isRequired,
+  idBoard: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = (state, props) =>
-  createStructuredSelector({
-    cards: makeSelectCards(props.idList),
-  });
-
-function mapDispatchToProps(dispatch) {
-  return {
-    onAddCard: (title, idList) => dispatch(addCard(title, idList)),
-  };
-}
-
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
-
-export default compose(withConnect)(Cards);
+export default memo(Cards);

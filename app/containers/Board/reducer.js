@@ -9,7 +9,7 @@ import { DEFAULT_ACTION } from './constants';
 export const initialState = {
   '1': {
     id: '1',
-    title: 'grillo',
+    title: 'grillo board',
   },
   '2': {
     id: '2',

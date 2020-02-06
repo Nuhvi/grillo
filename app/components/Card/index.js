@@ -14,20 +14,21 @@ const Wrapper = styled(Card)`
   padding: 0 ${props => props.theme.spacing(2)}px;
 `;
 
-function CardItem({ card }) {
+const CardItem = ({ card, dragHandleProps }) => {
   const { title } = card;
 
   return (
-    <Wrapper component="article" variant="outlined">
+    <Wrapper component="article" variant="outlined" {...dragHandleProps}>
       <Typography variant="h6" component="h4">
         {title}
       </Typography>
     </Wrapper>
   );
-}
+};
 
 CardItem.propTypes = {
   card: PropTypes.object.isRequired,
+  dragHandleProps: PropTypes.shape({}).isRequired,
 };
 
 export default memo(CardItem);

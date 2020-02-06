@@ -14,17 +14,15 @@ import { IntlProvider } from 'react-intl';
 
 import { makeSelectLocale } from './selectors';
 
-export function LanguageProvider(props) {
-  return (
-    <IntlProvider
-      locale={props.locale}
-      key={props.locale}
-      messages={props.messages[props.locale]}
-    >
-      {React.Children.only(props.children)}
-    </IntlProvider>
-  );
-}
+export const LanguageProvider = props => (
+  <IntlProvider
+    locale={props.locale}
+    key={props.locale}
+    messages={props.messages[props.locale]}
+  >
+    {React.Children.only(props.children)}
+  </IntlProvider>
+);
 
 LanguageProvider.propTypes = {
   locale: PropTypes.string,

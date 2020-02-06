@@ -6,26 +6,39 @@
 
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
-import Cards from 'containers/Cards';
-import ListTitle from './ListTitle';
+import { Draggable } from 'react-beautiful-dnd';
 
-import Wrapper from './ListWrapper';
+import ListHead from './ListHead';
+import ListContainer from './ListContainer';
 
-function List(props) {
-  const { title, id } = props.list;
+const List = ({ list, draggableIndex, children }) => {
+  const { title, id } = list;
 
   return (
-    <div>
-      <Wrapper component="article" elevation={4}>
-        <ListTitle>{title}</ListTitle>
-        <Cards idList={id} />
-      </Wrapper>
-    </div>
+    <Draggable draggableId={id} index={draggableIndex}>
+      {(provided, snapshot) => (
+        <ListContainer
+          component="article"
+          elevation={0}
+          variant={snapshot.isDragging ? 'outlined' : ''}
+          className="list"
+          {...provided.draggableProps}
+          ref={provided.innerRef}
+        >
+          <ListHead dragHandleProps={provided.dragHandleProps}>
+            {title}
+          </ListHead>
+          {children}
+        </ListContainer>
+      )}
+    </Draggable>
   );
-}
+};
 
 List.propTypes = {
   list: PropTypes.object.isRequired,
+  draggableIndex: PropTypes.number,
+  children: PropTypes.node,
 };
 
 export default memo(List);

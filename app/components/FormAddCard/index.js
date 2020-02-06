@@ -21,7 +21,7 @@ function FormAddCard({ idList, submitHandler }) {
         form.reset();
       }}
     >
-      <input name="title" placeholder="add list" />
+      <input name="title" placeholder="Add Card" />
       <button type="submit">
         <FormattedMessage {...messages.submitButton} />
       </button>
