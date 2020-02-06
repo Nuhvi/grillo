@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const CardWrapper = styled.div`
-  height: 50px;
+  margin-bottom: ${props => props.theme.spacing(2)}px;
 `;
 
 export default CardWrapper;

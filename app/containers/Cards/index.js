@@ -33,7 +33,7 @@ export const Cards = ({ idList, idBoard }) => {
     dispatch(addCard(title, idList, _.last(boardCards).pos + 100000));
 
   return (
-    <div>
+    <div style={{ height: '100%' }}>
       <FormWrapper>
         <FormAddCard idList={idList} submitHandler={onAddCard} />
       </FormWrapper>

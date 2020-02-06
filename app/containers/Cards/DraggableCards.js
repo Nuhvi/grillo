@@ -7,7 +7,11 @@ import CardWrapper from './CardWrapper';
 const DraggableCards = ({ cards, idList }) => (
   <Droppable droppableId={`${idList}`} type="card">
     {provided => (
-      <div {...provided.droppableProps} ref={provided.innerRef}>
+      <div
+        style={{ height: '100%' }}
+        {...provided.droppableProps}
+        ref={provided.innerRef}
+      >
         {cards.map((card, index) => (
           <Draggable key={card.id} draggableId={`${card.id}`} index={index}>
             {providedDraggable => (
