@@ -20,7 +20,7 @@ const List = ({ list, draggableIndex, children }) => {
         <ListContainer
           component="article"
           elevation={0}
-          variant={snapshot.isDragging ? 'outlined' : ''}
+          variant={snapshot.isDragging ? 'outlined' : 'elevation'}
           className="list"
           {...provided.draggableProps}
           ref={provided.innerRef}
