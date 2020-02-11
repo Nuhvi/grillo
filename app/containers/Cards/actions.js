@@ -6,11 +6,11 @@
 
 import { ADD_CARD, CHANGE_POSITION } from './constants';
 
-export const addCard = (title, idList, newPos) => ({
+export const addCard = ({ title, idList, lastCard }) => ({
   type: ADD_CARD,
   title,
   idList,
-  newPos,
+  newPos: lastCard ? lastCard.pos + 100 : 0,
 });
 
 export const changePosCard = ({ idCard, idList, newPos }) => ({

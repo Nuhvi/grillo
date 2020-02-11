@@ -11,31 +11,28 @@ import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 import FormAddCard from 'components/FormAddCard';
 import _ from 'lodash';
-import makeSelectListCardsOrderedByPos, {
-  makeSelectBoardCards,
-} from './selectors';
+import makeSelectListCardsOrderedByPos from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import DraggableCards from './DraggableCards';
 import FormWrapper from './FormWrapper';
 import { addCard } from './actions';
 
-export const Cards = ({ idList, idBoard }) => {
+export const Cards = ({ idList }) => {
   useInjectReducer({ key: 'allCards', reducer });
   useInjectSaga({ key: 'allCards', saga });
 
   const listCards = useSelector(makeSelectListCardsOrderedByPos(idList));
 
-  const boardCards = useSelector(makeSelectBoardCards(idBoard));
-
   const dispatch = useDispatch();
+
   const onAddCard = title =>
-    dispatch(addCard(title, idList, _.last(boardCards).pos + 100000));
+    dispatch(addCard({ title, idList, lastCard: _.last(listCards) }));
 
   return (
     <div style={{ height: '100%' }}>
       <FormWrapper>
-        <FormAddCard idList={idList} submitHandler={onAddCard} />
+        <FormAddCard submitHandler={onAddCard} />
       </FormWrapper>
       <DraggableCards cards={listCards} idList={idList} />
     </div>
@@ -44,7 +41,6 @@ export const Cards = ({ idList, idBoard }) => {
 
 Cards.propTypes = {
   idList: PropTypes.string.isRequired,
-  idBoard: PropTypes.string.isRequired,
 };
 
 export default memo(Cards);
