@@ -10,14 +10,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import messages from './messages';
 
-function FormAddCard({ idList, submitHandler }) {
+function FormAddCard({ submitHandler }) {
   return (
     <form
       onSubmit={evt => {
         evt.preventDefault();
         const form = evt.target;
         const title = form.children.title.value.trim();
-        submitHandler(title, idList);
+        submitHandler(title);
         form.reset();
       }}
     >
@@ -30,7 +30,6 @@ function FormAddCard({ idList, submitHandler }) {
 }
 
 FormAddCard.propTypes = {
-  idList: PropTypes.string.isRequired,
   submitHandler: PropTypes.func.isRequired,
 };
 

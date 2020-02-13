@@ -10,11 +10,11 @@ const getNewPos = (collection, source, destination) => {
   const itemAtDestination = collection[destinationIndex];
 
   if (!itemAtDestination) {
-    return itemBeforeDestination ? itemBeforeDestination.pos + 100000 : 0;
+    return itemBeforeDestination ? itemBeforeDestination.pos + 100 : 0;
   }
   return itemBeforeDestination
     ? (itemBeforeDestination.pos + itemAtDestination.pos) / 2
-    : itemAtDestination.pos - 100000;
+    : itemAtDestination.pos - 100;
 };
 
 export default getNewPos;

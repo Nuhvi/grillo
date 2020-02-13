@@ -28,7 +28,7 @@ export const Lists = ({ idBoard }) => {
   const dispatch = useDispatch();
 
   const onAddList = title =>
-    dispatch(addList(title, idBoard, _.last(lists).pos + 100000));
+    dispatch(addList(title, idBoard, _.last(lists).pos + 100));
 
   return (
     <ListsCanvas>
